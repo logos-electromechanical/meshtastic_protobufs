@@ -368,7 +368,7 @@ message ModuleConfig {
     /*
      * Mode for serial module operation
      */
-    Serial_Mode mode = 8;
+    Serial_Mode mode = 7;
 
     /*
      * Overrides the platform's defacto Serial port instance to use with Serial module config settings

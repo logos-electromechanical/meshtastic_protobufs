@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package meshtastic;
+
+option csharp_namespace = "Meshtastic.Protobufs";
+option go_package = "github.com/meshtastic/go/generated";
+option java_outer_classname = "ModuleConfigProtos";
+option java_package = "com.geeksville.mesh";
+option swift_prefix = "";
+
+/*
+ * This message wraps the header and lower 160 bytes of the payload of a 
+ * MAVLink v2 packet
+ */
+
+message MavlinkPacket {
+    /* Length of the MAVLink payload */
+    uint32 length = 1;
+
+    /* 
+     * Header compatibility flags 
+     * Lowest byte is incompat flags 
+     * Next to lowest byte is compat flags 
+     */
+    uint32 compat_flags = 2;
+
+    /* Message sequence number */
+    uint32 seq_number = 3;
+
+    /*
+     * Sender ID
+     * Lowest byte is the sender System ID
+     * Next to lowest byte is the sender Component ID
+     */
+    uint32 sender_id = 4;
+
+    /* Message ID */
+    uint32 msg_id = 5;
+
+    /* Checksum */
+    uint32 checksum = 6;
+
+    /* Signature */
+    optional bytes signature = 7;
+
+    /* Payload */
+    optional bytes payload = 8;
+}
+
+/* 
+ * This message wraps the rest of the packet, if required */
+
+message MavlinkExtendedPacket {
+    /* Length of the MAVLink payload */
+    uint32 length = 1;
+
+    /* Message sequence number */
+    uint32 seq_number = 2;
+
+    /*
+     * Sender ID
+     * Lowest byte is the sender System ID
+     * Next to lowest byte is the sender Component ID
+     */
+    uint32 sender_id = 3;
+
+    /* Message ID */
+    uint32 msg_id = 4;
+
+    /* Payload */
+    bytes payload = 5;
+}
