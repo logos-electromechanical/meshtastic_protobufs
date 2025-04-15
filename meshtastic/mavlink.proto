@@ -17,34 +17,29 @@ message MavlinkPacket {
     /* Length of the MAVLink payload */
     uint32 length = 1;
 
-    /* 
-     * Header compatibility flags 
-     * Lowest byte is incompat flags 
-     * Next to lowest byte is compat flags 
-     */
-    uint32 compat_flags = 2;
+    /* (In)Compatibility flags */
+    uint32 incompat_flags = 2;
+    uint32 compat_flags = 3;
 
     /* Message sequence number */
-    uint32 seq_number = 3;
+    uint32 seq_number = 4;
 
-    /*
-     * Sender ID
-     * Lowest byte is the sender System ID
-     * Next to lowest byte is the sender Component ID
-     */
-    uint32 sender_id = 4;
+    /* Sender IDs */
+    uint32 system_id = 5;
+    uint32 component_id = 6;
 
     /* Message ID */
-    uint32 msg_id = 5;
+    uint32 msg_id = 7;
 
     /* Checksum */
-    uint32 checksum = 6;
-
-    /* Signature */
-    optional bytes signature = 7;
+    uint32 checksum = 8;
 
     /* Payload */
-    optional bytes payload = 8;
+    optional bytes payload = 9;
+
+    /* Signature */
+    optional bytes signature = 10;
+
 }
 
 /* 
@@ -57,16 +52,13 @@ message MavlinkExtendedPacket {
     /* Message sequence number */
     uint32 seq_number = 2;
 
-    /*
-     * Sender ID
-     * Lowest byte is the sender System ID
-     * Next to lowest byte is the sender Component ID
-     */
-    uint32 sender_id = 3;
+    /* Sender IDs */
+    uint32 system_id = 3;
+    uint32 component_id = 4;
 
     /* Message ID */
-    uint32 msg_id = 4;
+    uint32 msg_id = 5;
 
     /* Payload */
-    bytes payload = 5;
+    bytes payload = 6;
 }

@@ -1,14 +1,17 @@
 *MavlinkPacket.length int_size:8
-*MavlinkPacket.compat_flags int_size:16
+*MavlinkPacket.compat_flags int_size:8
+*MavlinkPacket.incompat_flags int_size:8
 *MavlinkPacket.seq_number int_size:8
-*MavlinkPacket.sender_id int_size:16
+*MavlinkPacket.system_id int_size:8
+*MavlinkPacket.component_id int_size:8
 *MavlinkPacket.checksum int_size:16
 *MavlinkPacket.signature max_size:13
 *MavlinkPacket.payload max_size:160
 
 *MavlinkExtendedPacket.length int_size:8
 *MavlinkExtendedPacket.seq_number int_size:8
-*MavlinkExtendedPacket.sender_id int_size:16
+*MavlinkPacket.system_id int_size:8
+*MavlinkPacket.component_id int_size:8
 *MavlinkExtendedPacket.payload max_size:95
 
 
