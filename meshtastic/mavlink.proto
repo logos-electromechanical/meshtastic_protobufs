@@ -35,7 +35,7 @@ message MavlinkPacket {
     uint32 checksum = 8;
 
     /* Payload */
-    optional bytes payload = 9;
+    repeated uint64 payload = 9;
 
     /* Signature */
     optional bytes signature = 10;
@@ -60,5 +60,5 @@ message MavlinkExtendedPacket {
     uint32 msg_id = 5;
 
     /* Payload */
-    bytes payload = 6;
+    repeated uint64 payload = 6;
 }

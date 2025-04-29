@@ -331,8 +331,6 @@ message ModuleConfig {
       CALTOPO = 5;
       // Ecowitt WS85 weather station
       WS85 = 6;
-      // MAVLink mode
-      MAVLINK = 7;
     }
 
     /*
@@ -376,6 +374,95 @@ message ModuleConfig {
      * Existing logging over the Serial Console will still be present
      */
     bool override_console_serial_port = 8;
+  }
+
+  /*
+   * MAVLink Config
+   */
+  message MAVLinkConfig {
+    /*
+     * TODO: REPLACE
+     */
+    enum Serial_Baud {
+      BAUD_DEFAULT = 0;
+      BAUD_110 = 1;
+      BAUD_300 = 2;
+      BAUD_600 = 3;
+      BAUD_1200 = 4;
+      BAUD_2400 = 5;
+      BAUD_4800 = 6;
+      BAUD_9600 = 7;
+      BAUD_19200 = 8;
+      BAUD_38400 = 9;
+      BAUD_57600 = 10;
+      BAUD_115200 = 11;
+      BAUD_230400 = 12;
+      BAUD_460800 = 13;
+      BAUD_576000 = 14;
+      BAUD_921600 = 15;
+    }
+
+    /*
+     * Type for defining throttling for a message
+     */
+
+    message MAVLink_Throttle {
+        uint32 message_id = 1;
+        oneof throttle {
+            /* transmit every n messages */
+            uint32 every = 2;
+            /* transmit ever n milliseconds */
+            uint32 millis = 3;
+        }
+    }
+
+    /*
+     * Preferences for the MAVLink Mocdule
+     */
+    bool enabled = 1;
+
+    /*
+     * RX pin (should match Arduino gpio pin number)
+     */
+    uint32 rxd = 2;
+
+    /*
+     * TX pin (should match Arduino gpio pin number)
+     */
+    uint32 txd = 3;
+
+    /*
+     * Serial baud rate
+     */
+    Serial_Baud baud = 4;
+
+    /*
+     * TODO: REPLACE
+     */
+    uint32 timeout = 5;
+
+    /*
+     * Overrides the platform's defacto Serial port instance to use with Serial module config settings
+     * This is currently only usable in output modes like NMEA / CalTopo and may behave strangely or not work at all in other modes
+     * Existing logging over the Serial Console will still be present
+     */
+    bool override_console_serial_port = 6;
+
+    /*
+     * This is the allow list of message ids; message ids on this list will be relayed 
+     * A value of -1 is a wildcard for all messages
+     */
+    repeated int32 allow_list = 7;
+
+    /*
+     * This is a block list of message ids; IDs on this list will not be transmitted unless on the allow_list or throttle_list
+     * A value of -1 is a wildcard for all messages
+     */
+
+    repeated int32 block_list = 8;
+
+    repeated MAVLink_Throttle throttle_list = 9;
+
   }
 
   /*
@@ -810,6 +897,8 @@ message ModuleConfig {
      * TODO: REPLACE
      */
     PaxcounterConfig paxcounter = 13;
+
+    MAVLinkConfig mav_config = 14;
   }
 }
 
